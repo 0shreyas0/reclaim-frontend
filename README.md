@@ -1,167 +1,159 @@
-# Reclaim Frontend
+<div align="center">
+  <img src="https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/React-18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
+  <img src="https://img.shields.io/badge/Socket.IO-Chat-010101?style=for-the-badge&logo=socket.io&logoColor=white" />
+  <img src="https://img.shields.io/badge/Google_OAuth-Auth-4285F4?style=for-the-badge&logo=google&logoColor=white" />
 
-Reclaim is the main user-facing experience for a lost-and-found platform. This Next.js app lets users report lost or found items, search with location-aware filters, submit claims, manage recovery workflows, chat in real time, and access admin tooling when authorized.
+  <h1>Reclaim Frontend</h1>
+  <p>Main showcase app for a lost-and-found platform with claims, chat, map-based search, and admin tooling.</p>
+</div>
 
-## What The App Does
+---
 
-- Browse all reported lost and found items from a unified home feed
-- Filter items by type, category, keyword, and location
-- Post new lost or found reports with images and map-based location input
-- Sign up with email/password or Google OAuth
-- View item details and submit claims or retrieval requests
-- Manage personal items and claims from a dashboard
-- Chat with matched users in real time
-- Use AI-assisted search to refine discovery
-- Access admin controls for users, items, and platform stats
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><strong>Framework</strong><br />Next.js App Router</td>
+      <td align="center"><strong>UI</strong><br />Tailwind CSS + custom components</td>
+      <td align="center"><strong>Auth</strong><br />JWT + Google OAuth</td>
+      <td align="center"><strong>Maps</strong><br />Leaflet</td>
+    </tr>
+  </table>
+</div>
 
-## Frontend Stack
+## Overview
 
-- Next.js 15 with the App Router
-- React 18 and TypeScript
-- Tailwind CSS 4
-- Axios for API requests
-- Google OAuth via `@react-oauth/google`
-- Socket.IO client for chat
-- Leaflet and React Leaflet for map/location flows
-- `react-hot-toast` for notifications
+**Reclaim Frontend** is the primary product experience for the project. It gives users a clean interface to report lost or found items, search through community posts, submit claims, coordinate returns through chat, and manage everything from a personal dashboard.
+
+## Features
+
+- **Unified Home Feed:** Browse all lost and found listings from a single landing page.
+- **Search and Filters:** Search by keyword, category, type, city, state, country, or map bounds.
+- **Item Reporting:** Create lost or found posts with images, descriptions, and precise location input.
+- **Authentication:** Email/password auth plus Google sign-in support.
+- **Claims Workflow:** Submit claims, manage pending requests, approve/reject claimants, and resolve returns.
+- **Real-Time Chat:** Talk directly with matched users after claim approval.
+- **Dashboard:** Track posted items, incoming claims, outgoing claims, and retrieval activity.
+- **Admin Panel:** Authorized admins can inspect platform stats, users, and items.
+- **AI Search:** Includes an assistant-driven search flow backed by the backend AI endpoint.
 
 ## Main Routes
 
-### Public
-
-- `/` home feed with search and filters
-- `/items/[id]` item detail page
+- `/` home feed with search, autocomplete, and filters
+- `/post` create a lost/found report
+- `/items/[id]` item detail view
+- `/items/[id]/claim` claim or retrieval request page
+- `/dashboard` user dashboard for items and claims
+- `/chat` real-time chat screen
+- `/settings` user settings
 - `/auth/login` login
-- `/auth/register` registration and Google sign-in
-- `/profile/[id]` public profile view
+- `/auth/register` register and Google sign-in
+- `/profile/[id]` profile page
+- `/admin` admin dashboard
 
-### Authenticated
+## Tech Stack
 
-- `/post` create a new item
-- `/dashboard` manage posted items, claims, and retrievals
-- `/chat` real-time chat interface
-- `/settings` account settings
-- `/items/[id]/claim` submit a claim/request
+- Next.js `15.x`
+- React `18.x`
+- TypeScript `5.x`
+- Tailwind CSS `4.x`
+- Axios
+- `@react-oauth/google`
+- Socket.IO Client
+- Leaflet + React Leaflet
+- `react-hot-toast`
 
-### Admin
+## Requirements
 
-- `/admin` admin dashboard for stats, users, and items
+- Node.js 20+
+- npm
+- Running Reclaim backend API
+- Google OAuth client ID
 
-## Key UI Areas
-
-### Home Feed
-
-- Debounced search against the backend
-- Desktop sidebar and mobile modal filters
-- Search autocomplete
-- Lost/found type switching
-- Location filtering with country, state, city, and bounds support
-
-### Item Lifecycle
-
-1. A user creates a lost or found post.
-2. Other users discover it through search or filters.
-3. A claimant submits a claim or retrieval request.
-4. The owner reviews claims and approves or rejects them.
-5. Approved users can open chat and coordinate recovery.
-6. The owner can mark the flow as resolved/retrieved.
-
-### Dashboard
-
-- View items created by the current user
-- See pending claim counts
-- Manage incoming claims
-- Edit or delete pending outgoing claims
-- Track retrieval activity separately from claims
-
-### Chat
-
-- Connects to the backend Socket.IO server
-- Joins item-specific rooms
-- Sends and receives messages in real time
-
-## Project Structure
-
-```text
-reclaim-frontend/
-├── app/                 # App Router pages
-├── components/          # Reusable UI and domain components
-├── context/             # Auth state
-├── lib/                 # API client
-├── public/              # Static assets
-└── src/                 # Legacy/generated app files
-```
-
-Notes:
-
-- The active app code is primarily in `app/`, `components/`, `context/`, and `lib/`.
-- There is also a `src/app` folder in the repo. The current product-facing app uses the top-level `app/` routes.
-
-## Local Setup
-
-1. Install dependencies.
-
-```bash
-npm install
-```
-
-2. Create the local env file.
-
-```bash
-cp .env.example .env.local
-```
-
-3. Start the frontend.
-
-```bash
-npm run dev
-```
-
-Open `http://localhost:3000`.
-
-## Environment Variables
+## Environment Setup
 
 Create `reclaim-frontend/.env.local`:
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5001/api
-NEXT_PUBLIC_GOOGLE_CLIENT_ID=
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
 ```
 
-### Variable Notes
+- `NEXT_PUBLIC_API_URL` is used for REST requests and for deriving the Socket.IO server host.
+- `NEXT_PUBLIC_GOOGLE_CLIENT_ID` is required for Google sign-in and sign-up flows.
 
-- `NEXT_PUBLIC_API_URL`: Base URL for all REST calls. The app defaults to `http://localhost:5001/api` if unset.
-- `NEXT_PUBLIC_GOOGLE_CLIENT_ID`: Required for the Google OAuth provider used in login and registration flows.
+## Run Locally
 
-## Scripts
+Install dependencies:
 
-- `npm run dev` starts the Next.js development server
-- `npm run build` builds the production bundle
-- `npm run start` runs the production server
-- `npm run lint` runs ESLint
+```bash
+npm install
+```
 
-## Backend Expectations
+Start the app:
 
-This frontend depends on the backend for:
+```bash
+npm run dev
+```
 
-- auth and session bootstrapping
-- item CRUD and search
-- claims workflow
-- admin data
-- image upload endpoints
-- AI search
-- chat history and Socket.IO events
+Other useful commands:
 
-The backend should be running on `http://localhost:5001` in local development unless `NEXT_PUBLIC_API_URL` points elsewhere.
+```bash
+npm run build
+npm run start
+npm run lint
+```
 
-## Integration Notes
+Default local app URL:
 
-- The shared API client attaches the JWT from `localStorage` on each request.
-- Socket chat derives its host from `NEXT_PUBLIC_API_URL`.
+```text
+http://localhost:3000
+```
+
+## Backend Dependency
+
+The frontend depends on the backend for:
+
+- authentication
+- item CRUD and item search
+- claims and retrieval workflows
+- chat history and live messaging
+- admin stats and moderation
+- image uploads
+- AI-assisted search
+
+If the backend is unavailable or `NEXT_PUBLIC_API_URL` is incorrect, the UI will load but data-dependent flows will fail.
+
+## Project Structure
+
+```text
+app/           Main App Router pages
+components/    UI building blocks and domain components
+context/       Auth state and shared client context
+lib/           Axios API client
+public/        Static assets
+src/           Legacy/generated app files still present in repo
+```
+
+## User Flow
+
+1. Users sign in or create an account.
+2. They browse or search lost and found posts.
+3. They open an item and submit a claim or retrieval request.
+4. The item owner reviews the request from the dashboard.
+5. Approved users can continue in chat.
+6. The owner resolves the flow once the item is returned.
+
+## Notes
+
+- JWTs are attached from `localStorage` through the shared API client.
 - Google OAuth should use the same client ID configured in the backend.
-- Leaflet CSS is loaded globally in the app layout.
+- The active product app is primarily built from `app/`, `components/`, `context/`, and `lib/`.
+- Leaflet styles are loaded globally through the root layout.
 
 ## Related Docs
 
-- Backend setup: [`../reclaim-backend/README.md`](../reclaim-backend/README.md)
+- Backend README: [`../reclaim-backend/README.md`](../reclaim-backend/README.md)
 - Repo overview: [`../README.md`](../README.md)
